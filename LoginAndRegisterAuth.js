@@ -1,12 +1,20 @@
 //Logowanie
 function LogIn() {
-  var userSIEmail = document.getElementById("userSIEmail").value;
-  var userSIPassword = document.getElementById("userSIPassword").value;
+  const userSIEmail = document.getElementById("userSIEmail").value;
+  const userSIPassword = document.getElementById("userSIPassword").value;
   
+
   firebase
     .auth()
     .signInWithEmailAndPassword(userSIEmail, userSIPassword)
     .then((value) => {
+      const { uid, email } = firebase.auth().currentUser;
+      //console.log('uid: ', uid);
+      //console.log('email: ', email);
+      //document.cookie = "username=" + email;
+      sessionStorage.setItem("username", uid);
+      //var x = document.cookie;
+      //console.log('cookie', x);
       //Logowanie poszło pomyslnie
       window.location.replace("/main/main.html");
     })
@@ -14,36 +22,48 @@ function LogIn() {
       // Error podczas logowania
       alert("Sprawdź login i hasło");
     });
-}
 
+
+  // firebase
+  //   .auth()
+  //   .signInWithEmailAndPassword(userSIEmail, userSIPassword)
+  //   .then((value) => {
+  //     //Logowanie poszło pomyslnie
+  //     window.location.replace("/main/main.html");
+  //   })
+  //   .catch((error) => {
+  //     // Error podczas logowania
+  //     alert("Sprawdź login i hasło");
+  //   });
+}
 
 //Rejestracja
 function RegisterAccount() {
-  var userEmail = document.getElementById("userEmail").value;
-  var userPassword = document.getElementById("userPassword").value;
-  var confirmPassword = document.getElementById("confirmPassword").value;
+  const userEmail = document.getElementById("userEmail").value;
+  const userPassword = document.getElementById("userPassword").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
   
-  var userEmailFormate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  var userPasswordFormate = /(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+  const userEmailFormate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const userPasswordFormate = /(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 
-  var checkUserEmailValid = userEmail.match(userEmailFormate);
-  var checkUserPasswordValid = userPassword.match(userPasswordFormate);
+  const checkUserEmailValid = userEmail.match(userEmailFormate);
+  const checkUserPasswordValid = userPassword.match(userPasswordFormate);
 
-  if (userPassword != confirmPassword) {
+  if (userPassword !== confirmPassword) {
     alert("Hasła są różne");
   } else {
-    if (checkUserEmailValid == null) {
+    if (checkUserEmailValid === null) {
       alert("Wprowadź poprawny email");
-    } else if (checkUserPasswordValid == null) {
-      alert("Hasło musi mieć min.6 znaków jedną mała i duża litere");
+    } else if (checkUserPasswordValid === null) {
+      alert("Hasło musi mieć min. 6 znaków, jedną mała i duża litere");
     } else {
       firebase
         .auth()
         .createUserWithEmailAndPassword(userEmail, userPassword)
         .then((value) => {
-          var user = firebase.auth().currentUser;
+          const user = firebase.auth().currentUser;
           //Rejestracja poszła pomyslnie
-          window.location.replace("/main/main.html");
+          window.location.replace("/index.html");
         })
         .catch((error) => {
           //Error podczas rejestracji
@@ -61,25 +81,19 @@ function checkLoginState(response) {
   if (response.authResponse) {
     // User is signed-in Facebook.
     window.location.replace("/main/main.html");
-    var unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
       unsubscribe();
       // Check if we are already signed-in Firebase with the correct user.
       if (!isUserEqual(response.authResponse, firebaseUser)) {
         // Build Firebase credential with the Facebook auth token.
-        var credential = firebase.auth.FacebookAuthProvider.credential(
+        const credential = firebase.auth.FacebookAuthProvider.credential(
             response.authResponse.accessToken);
-
+        const { uid, email } = firebase.auth().currentUser;
+        console.log('wartosc uid', uid);
         // Sign in with the credential from the Facebook user.
         firebase.auth().signInWithCredential(credential)
           .catch((error) => {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // The email of the user's account used.
-            var email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            var credential = error.credential;
-            // ...
+            console.error(error);
           });
       } else {
         // User is already signed-in Firebase with the correct user.
@@ -93,8 +107,8 @@ function checkLoginState(response) {
 
 function isUserEqual(facebookAuthResponse, firebaseUser) {
   if (firebaseUser) {
-    var providerData = firebaseUser.providerData;
-    for (var i = 0; i < providerData.length; i++) {
+    const providerData = firebaseUser.providerData;
+    for (const i = 0; i < providerData.length; i++) {
       if (providerData[i].providerId === firebase.auth.FacebookAuthProvider.PROVIDER_ID &&
           providerData[i].uid === facebookAuthResponse.userID) {
         // We don't need to re-auth the Firebase connection.
@@ -120,4 +134,14 @@ function signOut() {
       alert("wylogowanie nie powiodło się");
     });
     
+}
+
+//For services workers 
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker
+      .register("/serviceWorker.js")
+      .then(res => console.log("Service worker registered"))
+      .catch(err => console.log("Service worker not registered", err))
+  })
 }

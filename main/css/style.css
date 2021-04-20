@@ -81,7 +81,7 @@ body {
 }
 
 .header .account .outcome .outcome-total {
-  color: #A62C2C;
+  color: #CC0000 ;
 }
 
 /*/////////////   DASHBOARD    /////////////*/
@@ -123,12 +123,12 @@ body {
 
 .dashboard #all ul {
   text-align: center;
-  width: 360px;
-  height: 285px;
+  width: 100px;
+  height: 100px;
   list-style: none;
   margin: 0;
   padding: 0;
-  margin-top: 20px;
+  margin-top: 10px;
   overflow-x: auto;
 }
 

@@ -1,80 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/login.css">
-    <script src="https://kit.fontawesome.com/33b7a3e375.js" crossorigin="anonymous"></script>
-
-    <script src="//connect.facebook.net/en_US/sdk.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Savely</title>
+  <link rel="stylesheet" href="css/login.css">
+  <script src="https://kit.fontawesome.com/33b7a3e375.js" crossorigin="anonymous"></script>
+  <script src="//connect.facebook.net/en_US/sdk.js"></script>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="img/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="img/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="img/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+  <meta name="msapplication-TileColor" content="#F9AA33">
+  <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
+  <meta name="theme-color" content="#F9AA33">
 </head>
 
 <body>
-    <header>
-        <div class="block">
-            <h1>Savely</h1>
-            <p><input type="email" id="userSIEmail" placeholder="mail@mail.com" class="email"></input></p>
-            <p><input type="password" id="userSIPassword" placeholder="password" class="haslo"></input></p>
-            <h6></h6>
-            <div class="btn">
-                <button type="button" onclick="LogIn()">ZALOGUJ</button>
-                <fb:login-button data-auto-logout-link="true" scope="public_profile,email" size="large"></fb:login-button>
-            </div>
-            <h5><a href="Rejestracja.html">Załóż konto</a></h5>
-        </div>
-    </header>
+  <header>
+    <div class="block">
+      <h1>Savely</h1>
+      <p><input type="email" id="userSIEmail" placeholder="mail@mail.com" class="email"></input></p>
+      <p><input type="password" id="userSIPassword" placeholder="password" class="haslo"></input></p>
+      <h6></h6>
+      <div class="btn">
+        <button type="button" onclick="LogIn()">ZALOGUJ</button>
+        <fb:login-button data-auto-logout-link="true" scope="public_profile,email" size="large"></fb:login-button>
+      </div>
+      <h5><a href="Rejestracja.html">Załóż konto</a></h5>
+    </div>
+  </header>
 
-<!-- Firebase -->
+  <!-- Firebase -->
 
-    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
-  
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
-  
-    <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-analytics.js"></script>
-  
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-firestore.js"></script>
-  
-    <script>
-      // Your web app's Firebase configuration
-      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-      var firebaseConfig = {
-        apiKey: "AIzaSyCDk8ByRc4RnUoO5CIKWOAUQ_L1SUnrgLY",
-        authDomain: "savelytest.firebaseapp.com",
-        databaseURL: "https://savelytest-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "savelytest",
-        storageBucket: "savelytest.appspot.com",
-        messagingSenderId: "818000530729",
-        appId: "1:818000530729:web:342936161f54b08ffefb38",
-        measurementId: "G-W7MNMBPFF7"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      firebase.analytics();
-    </script>
+  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-firestore.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    var firebaseConfig = {
+      apiKey: "AIzaSyCRm0FLHW6DpcgjOFrOSjkcnptAz2TQ1PU",
+      authDomain: "fir-webapp-1050a.firebaseapp.com",
+      projectId: "fir-webapp-1050a",
+      storageBucket: "fir-webapp-1050a.appspot.com",
+      messagingSenderId: "342834582888",
+      appId: "1:342834582888:web:ddd3344905bc0e1461f2dd",
+      measurementId: "G-9M7MQTESCQ"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
 
 
-    <!-- Script do logowania i -->
-    <script src="LoginAndRegisterAuth.js"></script>
+  <!-- Script do logowania i -->
+  <script src="LoginAndRegisterAuth.js"></script>
 
-    <!-- Scrypt do logowania FB -->
-    <script>
-        FB.init({
-          appId      : '814390065839112',
-          status     : true,
-          xfbml      : true,
-          version    : 'v10.0'
-        });
-        FB.Event.subscribe('auth.authResponseChange', checkLoginState);
-      </script>
-
-    
+  <!-- Scrypt do logowania FB -->
+  <script>
+    FB.init({
+      appId: '814390065839112',
+      status: true,
+      xfbml: true,
+      version: 'v10.0'
+    });
+    FB.Event.subscribe('auth.authResponseChange', checkLoginState);
+  </script>
 </body>
 
 </html>
