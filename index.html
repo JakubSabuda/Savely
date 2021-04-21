@@ -13,7 +13,6 @@
   <title>Savely</title>
   <link rel="stylesheet" href="css/login.css">
   <script src="https://kit.fontawesome.com/33b7a3e375.js" crossorigin="anonymous"></script>
-  <script src="//connect.facebook.net/en_US/sdk.js"></script>
 
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
@@ -45,7 +44,6 @@
       <h6></h6>
       <div class="btn">
         <button type="button" onclick="LogIn()">ZALOGUJ</button>
-        <fb:login-button data-auto-logout-link="true" scope="public_profile,email" size="large"></fb:login-button>
         <div class="g-signin2" data-onsuccess="onSignIn" data-theme="light"></div>
       </div>
       <h5><a href="Rejestracja.html">Załóż konto</a></h5>
@@ -94,16 +92,6 @@
     });
   </script>
 
- <!-- Scrypt do logowania FB -->
-  <script>
-    FB.init({
-      appId: '939687353494709',
-      status: true,
-      xfbml: true,
-      version: 'v10.0'
-    });
-    FB.Event.subscribe('auth.authResponseChange', checkLoginState);
-  </script>
 </body>
 
 </html>

@@ -9,13 +9,9 @@ function LogIn() {
     .signInWithEmailAndPassword(userSIEmail, userSIPassword)
     .then((value) => {
       const { uid, email } = firebase.auth().currentUser;
-      //console.log('uid: ', uid);
-      //console.log('email: ', email);
-      //document.cookie = "username=" + email;
+
       sessionStorage.setItem("username", uid);
-      //var x = document.cookie;
-      //console.log('cookie', x);
-      //Logowanie poszło pomyslnie
+      
       window.location.replace("/main/main.html");
     })
     .catch((error) => {
@@ -23,18 +19,6 @@ function LogIn() {
       alert("Sprawdź login i hasło");
     });
 
-
-  // firebase
-  //   .auth()
-  //   .signInWithEmailAndPassword(userSIEmail, userSIPassword)
-  //   .then((value) => {
-  //     //Logowanie poszło pomyslnie
-  //     window.location.replace("/main/main.html");
-  //   })
-  //   .catch((error) => {
-  //     // Error podczas logowania
-  //     alert("Sprawdź login i hasło");
-  //   });
 }
 
 //Rejestracja
@@ -70,52 +54,6 @@ function RegisterAccount() {
         });
     }
   }
-}
-
-
-
-
-//Rejestracja za pomocą Facebooka
-function checkLoginState(response) {
-  if (response.authResponse) {
-    // User is signed-in Facebook.
-    window.location.replace("/main/main.html");
-    const unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
-      unsubscribe();
-      // Check if we are already signed-in Firebase with the correct user.
-      if (!isUserEqual(response.authResponse, firebaseUser)) {
-        // Build Firebase credential with the Facebook auth token.
-        const credential = firebase.auth.FacebookAuthProvider.credential(
-            response.authResponse.accessToken);
-        const { uid, email } = firebase.auth().currentUser;
-        sessionStorage.setItem("username", uid);
-        // Sign in with the credential from the Facebook user.
-        firebase.auth().signInWithCredential(credential)
-          .catch((error) => {
-            console.error(error);
-          });
-      } else {
-        // User is already signed-in Firebase with the correct user.
-      }
-    });
-  } else {
-    // User is signed-out of Facebook.
-    firebase.auth().signOut();
-  }
-}
-
-function isUserEqual(facebookAuthResponse, firebaseUser) {
-  if (firebaseUser) {
-    const providerData = firebaseUser.providerData;
-    for (const i = 0; i < providerData.length; i++) {
-      if (providerData[i].providerId === firebase.auth.FacebookAuthProvider.PROVIDER_ID &&
-          providerData[i].uid === facebookAuthResponse.userID) {
-        // We don't need to re-auth the Firebase connection.
-        return true;
-      }
-    }
-  }
-  return false;
 }
 
 
