@@ -62,6 +62,7 @@ function RegisterAccount() {
         .createUserWithEmailAndPassword(userEmail, userPassword)
         .then((value) => {
           const user = firebase.auth().currentUser;
+          sessionStorage.setItem("username", uid);
           //Rejestracja poszła pomyslnie
           window.location.replace("/index.html");
         })
