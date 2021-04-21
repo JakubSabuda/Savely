@@ -61,8 +61,6 @@ function RegisterAccount() {
         .auth()
         .createUserWithEmailAndPassword(userEmail, userPassword)
         .then((value) => {
-          const user = firebase.auth().currentUser;
-          sessionStorage.setItem("username", uid);
           //Rejestracja poszła pomyslnie
           window.location.replace("/index.html");
         })
@@ -90,7 +88,7 @@ function checkLoginState(response) {
         const credential = firebase.auth.FacebookAuthProvider.credential(
             response.authResponse.accessToken);
         const { uid, email } = firebase.auth().currentUser;
-        console.log('wartosc uid', uid);
+        sessionStorage.setItem("username", uid);
         // Sign in with the credential from the Facebook user.
         firebase.auth().signInWithCredential(credential)
           .catch((error) => {
@@ -125,6 +123,7 @@ function isUserEqual(facebookAuthResponse, firebaseUser) {
 function signOut() {
   firebase.auth().signOut().then(() => {
       // Wylogowanie powiodło się
+      sessionStorage.clear();
       window.location.replace("../index.html");
       //alert("wylogowanie powiodło się"); //
       //Ponizej jest wylogowanie z fb
