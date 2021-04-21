@@ -139,7 +139,7 @@ function signOut() {
 function onSignIn(googleUser) {
   window.location.replace("/main/main.html");
   console.log('Google Auth Response', googleUser);
-  sessionStorage.setItem("username", googleUser.uid);
+  sessionStorage.setItem("username", googleUser);
   // We need to register an Observer on Firebase Auth to make sure auth is initialized.
   var unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
     unsubscribe();
