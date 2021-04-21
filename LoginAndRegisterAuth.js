@@ -126,7 +126,11 @@ function signOut() {
       sessionStorage.clear();
       window.location.replace("../index.html");
       //alert("wylogowanie powiodło się"); //
-      //Ponizej jest wylogowanie z fb
+      //Ponizej jest wylogowanie z googla
+      var auth2 = gapi.auth2.getAuthInstance();
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
     })
     .catch((error) => {
       // Error podczas wylogowania
