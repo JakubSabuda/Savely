@@ -137,7 +137,7 @@ function signOut() {
 
 //Login with google
 function onSignIn(googleUser) {
-  window.location.replace("index.html");
+  window.location.replace("/main/main.html");
   console.log('Google Auth Response', googleUser);
   // We need to register an Observer on Firebase Auth to make sure auth is initialized.
   var unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
