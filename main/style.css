@@ -59,7 +59,7 @@ body{
     
 }
 
-.budget-header .account .income, .chart, .outcome{
+.budget-header .account .income, .outcome{
     display: inline-block;
     width: 100px;
 }

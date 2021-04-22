@@ -3,7 +3,6 @@ function LogIn() {
   const userSIEmail = document.getElementById("userSIEmail").value;
   const userSIPassword = document.getElementById("userSIPassword").value;
   
-
   firebase
     .auth()
     .signInWithEmailAndPassword(userSIEmail, userSIPassword)
@@ -21,7 +20,7 @@ function LogIn() {
 
 }
 
-//Rejestracja
+//Signing up
 function RegisterAccount() {
   const userEmail = document.getElementById("userEmail").value;
   const userPassword = document.getElementById("userPassword").value;
@@ -57,7 +56,7 @@ function RegisterAccount() {
 }
 
 
-//Wylogowanie
+//Log out
 function signOut() {
   firebase.auth().signOut().then(() => {
       // Wylogowanie powiodło się
@@ -78,7 +77,7 @@ function signOut() {
     
 }
 
-//Login with google
+//Login in with google
 function onSignIn(googleUser) {
   console.log('Google Auth Response', googleUser.currentUser);
 
@@ -113,12 +112,11 @@ function onSignIn(googleUser) {
   });
 }
 
-//For services workers 
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function() {
-    navigator.serviceWorker
-      .register("/serviceWorker.js")
-      .then(res => console.log("Service worker registered"))
-      .catch(err => console.log("Service worker not registered", err))
-  })
-}
+//For service workers
+window.onload = () => {
+  "use strict";
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("serviceWorker.js");
+  }
+};
